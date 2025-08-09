@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jorn Sports Analytics - Análise Preditiva de Performance</title>
+   <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>JORN SPORTS</h1>
+            <div class="subtitle">Sistema Preditivo de Performance Esportiva</div>
+        </div>
+
+        <div class="error-message" id="errorMessage"></div>
+
+        <div class="form-container">
+            <div class="form-section">
+                <div class="section-header">
+                    <div class="section-icon">👤</div>
+                    <div class="section-title">Perfil Biométrico</div>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label" for="nome">Identificação do Atleta</label>
+                        <input type="text" id="nome" class="form-input" placeholder="Nome completo" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="idade">Idade Cronológica</label>
+                        <input type="number" id="idade" class="form-input" min="12" max="80" placeholder="Anos" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="sexo">Perfil Biológico</label>
+                        <select id="sexo" class="form-select" required>
+                            <option value="">Selecione o perfil...</option>
+                            <option value="masculino">Masculino</option>
+                            <option value="feminino">Feminino</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="experiencia">Nível de Expertise</label>
+                        <select id="experiencia" class="form-select" required>
+                            <option value="">Avalie sua experiência...</option>
+                            <option value="iniciante">Novato (0-1 ano)</option>
+                            <option value="intermediario">Desenvolvido (1-3 anos)</option>
+                            <option value="avancado">Avançado (3+ anos)</option>
+                            <option value="atleta">Elite Competitiva</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="section-header">
+                    <div class="section-icon">📏</div>
+                    <div class="section-title">Análise Antropométrica</div>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label" for="altura">Estatura (cm)</label>
+                        <input type="number" id="altura" class="form-input" min="140" max="220" placeholder="Altura em centímetros" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="peso">Massa Corporal (kg)</label>
+                        <input type="number" id="peso" class="form-input" min="40" max="200" step="0.1" placeholder="Peso em quilogramas" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="envergadura">Envergadura (cm) <span class="optional-label">(Opcional)</span></label>
+                        <input type="number" id="envergadura" class="form-input" min="140" max="250" placeholder="Abertura dos braços">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="percentualGordura">Composição Corporal (%) <span class="optional-label">(Opcional)</span></label>
+                        <input type="number" id="percentualGordura" class="form-input" min="5" max="50" step="0.1" placeholder="% de gordura corporal">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="section-header">
+                    <div class="section-icon">⚡</div>
+                    <div class="section-title">Capacidades Físicas</div>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label" for="forca">Potência Muscular</label>
+                        <select id="forca" class="form-select" required>
+                            <option value="">Avalie sua força...</option>
+                            <option value="1">1 - Mínima</option>
+                            <option value="2">2 - Muito Baixa</option>
+                            <option value="3">3 - Baixa</option>
+                            <option value="4">4 - Abaixo da Média</option>
+                            <option value="5">5 - Média</option>
+                            <option value="6">6 - Acima da Média</option>
+                            <option value="7">7 - Boa</option>
+                            <option value="8">8 - Muito Boa</option>
+                            <option value="9">9 - Excelente</option>
+                            <option value="10">10 - Elite</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="resistencia">Sistema Cardiorrespiratório</label>
+                        <select id="resistencia" class="form-select" required>
+                            <option value="">Avalie sua resistência...</option>
+                            <option value="1">1 - Mínima</option>
+                            <option value="2">2 - Muito Baixa</option>
+                            <option value="3">3 - Baixa</option>
+                            <option value="4">4 - Abaixo da Média</option>
+                            <option value="5">5 - Média</option>
+                            <option value="6">6 - Acima da Média</option>
+                            <option value="7">7 - Boa</option>
+                            <option value="8">8 - Muito Boa</option>
+                            <option value="9">9 - Excelente</option>
+                            <option value="10">10 - Elite</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="velocidade">Velocidade & Agilidade</label>
+                        <select id="velocidade" class="form-select" required>
+                            <option value="">Avalie sua velocidade...</option>
+                            <option value="1">1 - Mínima</option>
+                            <option value="2">2 - Muito Baixa</option>
+                            <option value="3">3 - Baixa</option>
+                            <option value="4">4 - Abaixo da Média</option>
+                            <option value="5">5 - Média</option>
+                            <option value="6">6 - Acima da Média</option>
+                            <option value="7">7 - Boa</option>
+                            <option value="8">8 - Muito Boa</option>
+                            <option value="9">9 - Excelente</option>
+                            <option value="10">10 - Elite</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="flexibilidade">Flexibilidade & Coordenação</label>
+                        <select id="flexibilidade" class="form-select" required>
+                            <option value="">Avalie sua flexibilidade...</option>
+                            <option value="1">1 - Mínima</option>
+                            <option value="2">2 - Muito Baixa</option>
+                            <option value="3">3 - Baixa</option>
+                            <option value="4">4 - Abaixo da Média</option>
+                            <option value="5">5 - Média</option>
+                            <option value="6">6 - Acima da Média</option>
+                            <option value="7">7 - Boa</option>
+                            <option value="8">8 - Muito Boa</option>
+                            <option value="9">9 - Excelente</option>
+                            <option value="10">10 - Elite</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <div class="section-header">
+                    <div class="section-icon">🧠</div>
+                    <div class="section-title">Perfil Psicológico</div>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label" for="competitividade">Competitividade</label>
+                        <select id="competitividade" class="form-select" required>
+                            <option value="">Avalie sua competitividade...</option>
+                            <option value="1">1 - Muito Baixa</option>
+                            <option value="2">2 - Baixa</option>
+                            <option value="3">3 - Moderada</option>
+                            <option value="4">4 - Alta</option>
+                            <option value="5">5 - Muito Alta</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="concentracao">Capacidade de Concentração</label>
+                        <select id="concentracao" class="form-select" required>
+                            <option value="">Avalie sua concentração...</option>
+                            <option value="1">1 - Muito Baixa</option>
+                            <option value="2">2 - Baixa</option>
+                            <option value="3">3 - Moderada</option>
+                            <option value="4">4 - Alta</option>
+                            <option value="5">5 - Muito Alta</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="trabalhoEquipe">Trabalho em Equipe</label>
+                        <select id="trabalhoEquipe" class="form-select" required>
+                            <option value="">Preferência de modalidade...</option>
+                            <option value="individual">Prefiro esportes individuais</option>
+                            <option value="pequeno">Pequenos grupos (2-5 pessoas)</option>
+                            <option value="equipe">Esportes de equipe grandes</option>
+                            <option value="ambos">Tanto individual quanto equipe</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="riscoTolerancia">Tolerância ao Risco</label>
+                        <select id="riscoTolerancia" class="form-select" required>
+                            <option value="">Avalie sua tolerância ao risco...</option>
+                            <option value="1">1 - Muito Baixa (prefiro segurança)</option>
+                            <option value="2">2 - Baixa</option>
+                            <option value="3">3 - Moderada</option>
+                            <option value="4">4 - Alta</option>
+                            <option value="5">5 - Muito Alta (adoro desafios)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+<script>
+function clamp(v, min, max){ return Math.max(min, Math.min(max, v)); }
+
+function faixaIMCPorEsporte(tagPeso){
+  // Faixas amplas por tipo do seu DB
+  if (tagPeso === "baixo") return [18.5, 21.5];
+  if (tagPeso === "alto")  return [23.0, 26.5];
+  return [20.0, 24.0]; // "medio"/default
+}
+
+function envergaduraRatio(alturaCm, envergaduraCm){
+  if (!alturaCm || !envergaduraCm) return null;
+  const ratio = envergaduraCm / alturaCm; // ex.: 1.05
+  return Math.round(ratio * 1000) / 1000;
+}
+
+function scoreRangeMatch(value, [min, max], pesoMax){
+  if (value == null) return pesoMax * 0.5; // ausência: meia pontuação pra não punir demais
+  if (value >= min && value <= max) return pesoMax;
+  const dist = (value < min) ? (min - value) : (value - max);
+  // decai 1 ponto a cada 0.01 de razão ou 5cm (dependendo do que passar)
+  const step = (value < 3) ? 0.01 : 5; // heurística: razão usa 0.01; centímetros usam 5
+  return clamp(pesoMax - (dist / step), 0, pesoMax);
+}
+
+// Salvar/Restaurar
+function saveForm(){
+  if (!document.getElementById('consent').checked) return;
+  const ids = ["nome","idade","sexo","experiencia","altura","peso","envergadura","percentualGordura","forca","resistencia","velocidade","flexibilidade","competitividade","concentracao","trabalhoEquipe","riscoTolerancia"];
+  const data = {};
+  ids.forEach(id => data[id] = document.getElementById(id)?.value ?? null);
+  localStorage.setItem("jornForm", JSON.stringify(data));
+}
+
+function restoreForm(){
+  const raw = localStorage.getItem("jornForm");
+  if (!raw) return;
+  try{
+    const data = JSON.parse(raw);
+    Object.entries(data).forEach(([k,v])=>{
+      const el = document.getElementById(k);
+      if (el) el.value = v;
+    });
+  }catch(e){}
+}
+
+// Gráfico simples comparando atributos do TOP esporte
+function drawAttrChart(ctx, user, sport){
+  const labels = ["Força","Resistência","Velocidade","Flexibilidade"];
+  const userVals  = [user.forca, user.resistencia, user.velocidade, user.flexibilidade];
+  const alvoVals  = [sport.physical.forca, sport.physical.resistencia, sport.physical.velocidade, sport.physical.flexibilidade];
+
+  const W = ctx.canvas.width, H = ctx.canvas.height;
+  ctx.clearRect(0,0,W,H);
+
+  // layout básico
+  const left = 100, right = W - 30, top = 40, rowH = (H - top - 20) / labels.length;
+
+  ctx.font = "14px Inter, sans-serif";
+  ctx.fillStyle = "#b0b0b0";
+  ctx.textBaseline = "middle";
+
+  for(let i=0;i<labels.length;i++){
+    const y = top + i*rowH + rowH/2;
+    // label
+    ctx.fillText(labels[i], 20, y);
+
+    // trilho
+    const x0 = left, x1 = right;
+    ctx.globalAlpha = 0.25;
+    ctx.fillStyle = "#00ffff";
+    ctx.fillRect(x0, y-6, x1-x0, 12);
+    ctx.globalAlpha = 1;
+
+    // alvo
+    const alvoPerc = clamp(alvoVals[i]/10, 0, 1);
+    ctx.fillStyle = "#ff00ff";
+    ctx.fillRect(x0, y-10, (x1-x0)*alvoPerc, 6);
+
+    // usuário
+    const userPerc = clamp(userVals[i]/10, 0, 1);
+    ctx.fillStyle = "#00ff00";
+    ctx.fillRect(x0, y+2, (x1-x0)*userPerc, 6);
+
+    // valores
+    ctx.fillStyle = "#fff";
+    ctx.fillText(`${userVals[i]}/10 vs ${alvoVals[i]}/10`, x1 - 120, y);
+  }
+
+  // legenda
+  ctx.fillStyle = "#00ff00"; ctx.fillRect(left, H-18, 12, 12); ctx.fillStyle="#b0b0b0"; ctx.fillText("Você", left+18, H-12);
+  ctx.fillStyle = "#ff00ff"; ctx.fillRect(left+80, H-18, 12, 12); ctx.fillStyle="#b0b0b0"; ctx.fillText("Alvo do esporte", left+98, H-12);
+}
+</script>
+            <button class="analyze-btn" onclick="analisarPerfil()">
+                🚀 ANALISAR PERFIL ESPORTIVO
+            </button>
+        </div>
+
+        <div class="results" id="results">
+        <div class="results-header">
+  <h2>ANÁLISE COMPLETA Gerada</h2>
+  <div class="subtitle">Relatório Preditivo de Performance</div>
+  <div class="results-actions">
+    <button class="secondary-btn" id="editBtn">✏️ Editar respostas</button>
+    <button class="secondary-btn" id="savePdfBtn">🖨️ Exportar PDF</button>
+  </div>
+</div>
+<div class="results-content" id="resultsContent">
+  <div class="loading">
+    <div class="loading-spinner"></div>
+    <div class="loading-text">Processando dados biométricos...</div>
+  </div>
+  <div class="chart-wrap" style="display:none">
+    <canvas id="attrChart" width="600" height="320" aria-label="Comparativo de atributos" role="img"></canvas>
+  </div>
+  <div id="methodNote" class="method-note" aria-live="polite"></div>
+</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // Base de dados científica dos esportes
+    const sportsDatabase = {
+        "Natação": {
+            anthropometry: { altura: [170, 190], envergadura: [1.05, 1.08], peso: "medio" },
+            physical: { resistencia: 8, forca: 6, velocidade: 7, flexibilidade: 7 },
+            psychological: { competitividade: 4, concentracao: 5, trabalhoEquipe: "individual", risco: 2 },
+            description: "A natação é um esporte de baixo impacto que desenvolve o sistema cardiovascular e a força muscular de forma equilibrada e simétrica. É ideal para atletas que buscam um condicionamento completo sem sobrecarregar as articulações.",
+            benefits: ["Baixo impacto articular", "Desenvolvimento muscular simétrico", "Excelente condicionamento cardiovascular"],
+            startingTips: ["Busque aulas com um instrutor qualificado para aprender a técnica correta.", "Comece com uma frequência de 2 a 3 vezes por semana.", "Concentre-se na técnica da respiração e dos movimentos antes de buscar velocidade."]
+        },
+        "Corrida de Velocidade": {
+            anthropometry: { altura: [165, 185], peso: "baixo", muscular: "alta" },
+            physical: { resistencia: 6, forca: 9, velocidade: 10, flexibilidade: 8 },
+            psychological: { competitividade: 5, concentracao: 4, trabalhoEquipe: "individual", risco: 3 },
+            description: "Modalidade explosiva do atletismo focada em atingir a velocidade máxima em curtas distâncias. Requer uma enorme potência muscular, principalmente nos membros inferiores, e uma técnica de corrida apurada.",
+            benefits: ["Desenvolvimento de potência muscular explosiva", "Melhora da velocidade máxima e aceleração", "Queima calórica intensa em curtos períodos"],
+            startingTips: ["Um aquecimento extenso e dinâmico é obrigatório para prevenir lesões.", "Incorpore treinos de força específicos para pernas e core.", "A técnica de corrida é fundamental; considere a ajuda de um treinador."]
+        },
+        "Futebol": {
+            anthropometry: { altura: [165, 185], peso: "medio", muscular: "media" },
+            physical: { resistencia: 8, forca: 6, velocidade: 7, flexibilidade: 6 },
+            psychological: { competitividade: 4, concentracao: 3, trabalhoEquipe: "equipe", risco: 3 },
+            description: "O esporte mais popular do mundo, combina resistência para aguentar o jogo todo, piques de velocidade, habilidade técnica com a bola e uma complexa inteligência tática para o jogo coletivo.",
+            benefits: ["Condicionamento físico completo (aeróbico e anaeróbico)", "Desenvolvimento de habilidades sociais e trabalho em equipe", "Melhora da coordenação motora e agilidade"],
+            startingTips: ["Participe de escolinhas ou grupos amadores para começar.", "Desenvolva os fundamentos: passe, domínio de bola e chute.", "Jogue regularmente para desenvolver o entrosamento e a leitura de jogo."]
+        },
+        "Basquetebol": {
+            anthropometry: { altura: [175, 210], envergadura: [1.05, 1.10], peso: "medio" },
+            physical: { resistencia: 7, forca: 7, velocidade: 8, flexibilidade: 6 },
+            psychological: { competitividade: 4, concentracao: 4, trabalhoEquipe: "equipe", risco: 2 },
+            description: "Esporte dinâmico e rápido que exige altura, impulsão, agilidade e excelente coordenação. A capacidade de tomar decisões rápidas em um ambiente coletivo é crucial.",
+            benefits: ["Desenvolvimento de agilidade, reflexos e impulsão vertical", "Aprimoramento do trabalho em equipe e comunicação", "Exige e desenvolve alta coordenação motora e visão de jogo"],
+            startingTips: ["Treine os fundamentos: drible, arremesso e passe.", "Desenvolva a capacidade de saltar e a resistência para corridas curtas.", "Assista a jogos e aprenda sobre posicionamento tático."]
+        },
+        "Tênis": {
+            anthropometry: { altura: [170, 190], peso: "medio", muscular: "media" },
+            physical: { resistencia: 7, forca: 6, velocidade: 8, flexibilidade: 8 },
+            psychological: { competitividade: 5, concentracao: 5, trabalhoEquipe: "individual", risco: 2 },
+            description: "Esporte altamente técnico e mental que combina potência nos golpes, precisão, agilidade para cobrir a quadra e uma enorme resistência mental para manter o foco durante longas partidas.",
+            benefits: ["Desenvolvimento de coordenação olho-mão e agilidade", "Exige e aprimora a concentração e a resiliência mental", "Combina exercício aeróbico e anaeróbico"],
+            startingTips: ["Faça aulas com um professor para aprender os golpes básicos corretamente.", "Invista em uma raquete adequada para seu nível e tipo físico.", "Pratique a consistência dos movimentos antes de tentar aplicar força máxima."]
+        },
+        "Vôlei": {
+            anthropometry: { altura: [175, 200], envergadura: [1.05, 1.08], peso: "medio" },
+            physical: { resistencia: 6, forca: 8, velocidade: 7, flexibilidade: 7 },
+            psychological: { competitividade: 4, concentracao: 4, trabalhoEquipe: "equipe", risco: 2 },
+            description: "Esporte coletivo que enfatiza o salto vertical (potência), a coordenação para os movimentos de ataque e defesa, e um forte senso de trabalho em equipe para a organização tática.",
+            benefits: ["Desenvolvimento de grande potência de salto e força de braços", "Melhora da coordenação e tempo de reação", "Forte estímulo ao trabalho em equipe e comunicação"],
+            startingTips: ["Treine o salto vertical e o fortalecimento do core.", "Desenvolva os fundamentos: saque, manchete e toque.", "Pratique a comunicação constante com seus companheiros de equipe."]
+        },
+        "Ciclismo": {
+            anthropometry: { altura: [160, 185], peso: "baixo", muscular: "pernas" },
+            physical: { resistencia: 10, forca: 7, velocidade: 6, flexibilidade: 5 },
+            psychological: { competitividade: 4, concentracao: 4, trabalhoEquipe: "individual", risco: 4 },
+            description: "Esporte de resistência pura. Desenvolve um sistema cardiovascular extremamente eficiente e uma força muscular incrível nos membros inferiores, ideal para quem gosta de longos desafios e superação.",
+            benefits: ["Excelente para o sistema cardiovascular com baixo impacto nas articulações", "Fortalecimento massivo de pernas e glúteos", "Permite explorar novos lugares e ter contato com a natureza"],
+            startingTips: ["Invista em uma bicicleta do tamanho correto (bike fit).", "Comece com distâncias curtas e em terrenos planos, aumentando gradualmente.", "Sempre use equipamentos de segurança, especialmente o capacete."]
+        },
+        "Judô": {
+            anthropometry: { altura: [160, 185], peso: "variado", muscular: "alta" },
+            physical: { resistencia: 7, forca: 9, velocidade: 6, flexibilidade: 9 },
+            psychological: { competitividade: 4, concentracao: 5, trabalhoEquipe: "individual", risco: 3 },
+            description: "Arte marcial japonesa que utiliza a força do oponente a seu favor. Desenvolve força funcional, flexibilidade para executar os movimentos e uma disciplina mental rigorosa baseada no respeito.",
+            benefits: ["Desenvolvimento de força funcional e equilíbrio", "Aprender técnicas de autodefesa e disciplina", "Melhora da flexibilidade e consciência corporal"],
+            startingTips: ["Procure um dojo com instrutores qualificados e credenciados.", "Aprenda a cair (ukemis) corretamente para evitar lesões.", "Respeite a hierarquia de faixas e a filosofia do esporte."]
+        },
+        "Ginástica Artística": {
+            anthropometry: { altura: [150, 170], peso: "baixo", muscular: "alta" },
+            physical: { resistencia: 6, forca: 10, velocidade: 7, flexibilidade: 10 },
+            psychological: { competitividade: 5, concentracao: 5, trabalhoEquipe: "individual", risco: 5 },
+            description: "Modalidade que leva o corpo ao limite da força, flexibilidade e coordenação. Exige um controle corporal excepcional, coragem para executar os movimentos e uma dedicação extrema desde cedo.",
+            benefits: ["Desenvolvimento de níveis de elite de força relativa e flexibilidade", "Controle corporal e consciência espacial incomparáveis", "Fomenta disciplina, foco e coragem"],
+            startingTips: ["Idealmente, deve ser iniciado na infância.", "Treinamento sempre supervisionado por profissionais qualificados.", "O desenvolvimento é gradual e exige paciência e muita repetição."]
+        },
+        "Atletismo - Meio Fundo": {
+            anthropometry: { altura: [165, 180], peso: "baixo", muscular: "media" },
+            physical: { resistencia: 9, forca: 6, velocidade: 8, flexibilidade: 6 },
+            psychological: { competitividade: 5, concentracao: 4, trabalhoEquipe: "individual", risco: 2 },
+            description: "Corridas de média distância (800m a 3000m) que exigem uma combinação estratégica de alta velocidade e grande resistência aeróbica. O atleta precisa saber dosar o ritmo para o sprint final.",
+            benefits: ["Excelente desenvolvimento da resistência aeróbica e anaeróbica (VO2 máx)", "Desenvolvimento da velocidade de corrida e resistência à fadiga", "Fortalecimento da disciplina mental e estratégia de prova"],
+            startingTips: ["Construa uma base aeróbica sólida com treinos de rodagem.", "Incorpore treinos intervalados de alta intensidade para melhorar a velocidade.", "Aprenda a controlar seu ritmo (pacing) para não quebrar no final."]
+        },
+        // ... (resto da sua base de dados permanece igual) ...
+    };
+
+    function calcularIMC(peso, altura) {
+        if (!peso || !altura) return 0;
+        const alturaMetros = altura / 100;
+        return peso / (alturaMetros * alturaMetros);
+    }
+
+    function calcularCompatibilidade(userData, sportData) {
+        let score = 0;
+        let maxScore = 0;
+
+       // Análise antropométrica (peso: 25%)
+maxScore += 25;
+
+// Altura (10 pts)
+if (sportData.anthropometry.altura) {
+  const [minAlt, maxAlt] = sportData.anthropometry.altura;
+  score += scoreRangeMatch(userData.altura, [minAlt, maxAlt], 10);
+}
+
+// Envergadura (5 pts) — se DB define como razão esperada (ex.: 1.05–1.08) e usuário informou
+if (sportData.anthropometry.envergadura && userData.envergadura) {
+  const [minRat, maxRat] = sportData.anthropometry.envergadura;
+  const ratio = envergaduraRatio(userData.altura, userData.envergadura);
+  score += scoreRangeMatch(ratio, [minRat, maxRat], 5);
+} else {
+  score += 2.5; // crédito parcial se não houver dado
+}
+
+// IMC por FAIXA (10 pts)
+const imc = calcularIMC(userData.peso, userData.altura);
+const [imcMin, imcMax] = faixaIMCPorEsporte(sportData.anthropometry.peso);
+score += scoreRangeMatch(imc, [imcMin, imcMax], 10);
+        // Análise das capacidades físicas (peso: 40%)
+        maxScore += 40;
+        const physicalDiff = (
+            Math.abs(userData.forca - sportData.physical.forca) +
+            Math.abs(userData.resistencia - sportData.physical.resistencia) +
+            Math.abs(userData.velocidade - sportData.physical.velocidade) +
+            Math.abs(userData.flexibilidade - sportData.physical.flexibilidade)
+        );
+        // A diferença máxima possível é 36 (4 * 9). Mapeamos isso para 40 pontos.
+        score += Math.max(0, 40 - (physicalDiff * 1.1));
+
+        // Análise psicológica (peso: 35%)
+        maxScore += 35;
+        const compDiff = Math.abs(userData.competitividade - sportData.psychological.competitividade);
+        score += Math.max(0, 10 - compDiff * 2);
+
+        const concDiff = Math.abs(userData.concentracao - sportData.psychological.concentracao);
+        score += Math.max(0, 10 - concDiff * 2);
+
+        let teamScore = 0;
+        if (userData.trabalhoEquipe === sportData.psychological.trabalhoEquipe) {
+            teamScore = 10;
+        } else if (userData.trabalhoEquipe === "ambos") {
+            teamScore = 7; // Bom para ambos os tipos
+        } else if ((userData.trabalhoEquipe === 'pequeno' && sportData.psychological.trabalhoEquipe === 'equipe') ||
+                   (userData.trabalhoEquipe === 'equipe' && sportData.psychological.trabalhoEquipe === 'pequeno')) {
+            teamScore = 5; // Parcialmente compatível
+        } else {
+            teamScore = 2; // Incompatível
+        }
+        score += teamScore;
+
+        const riskDiff = Math.abs(userData.riscoTolerancia - sportData.psychological.risco);
+        score += Math.max(0, 5 - riskDiff);
+
+        return Math.round((score / maxScore) * 100);
+    }
+    function analisarPerfil() {
+        const userData = {
+            nome: document.getElementById('nome').value,
+            idade: parseInt(document.getElementById('idade').value),
+            sexo: document.getElementById('sexo').value,
+            experiencia: document.getElementById('experiencia').value,
+            altura: parseInt(document.getElementById('altura').value),
+            peso: parseFloat(document.getElementById('peso').value),
+            envergadura: parseInt(document.getElementById('envergadura').value) || null,
+            percentualGordura: parseFloat(document.getElementById('percentualGordura').value) || null,
+            forca: parseInt(document.getElementById('forca').value),
+            resistencia: parseInt(document.getElementById('resistencia').value),
+            velocidade: parseInt(document.getElementById('velocidade').value),
+            flexibilidade: parseInt(document.getElementById('flexibilidade').value),
+            competitividade: parseInt(document.getElementById('competitividade').value),
+            concentracao: parseInt(document.getElementById('concentracao').value),
+            trabalhoEquipe: document.getElementById('trabalhoEquipe').value,
+            riscoTolerancia: parseInt(document.getElementById('riscoTolerancia').value)
+        };
+
+        const requiredFields = ['nome', 'idade', 'sexo', 'experiencia', 'altura', 'peso', 'forca', 'resistencia', 'velocidade', 'flexibilidade', 'competitividade', 'concentracao', 'trabalhoEquipe', 'riscoTolerancia'];
+        const errorMessage = document.getElementById('errorMessage');
+        const resultsContainer = document.getElementById('results');
+        const resultsContent = document.getElementById('resultsContent');
+        const analyzeBtn = document.querySelector('.analyze-btn');
+
+        let firstInvalidField = null;
+
+        for (const field of requiredFields) {
+            if (!userData[field] && userData[field] !== 0) { // Checa se é nulo, undefined, NaN, ou string vazia
+                firstInvalidField = document.getElementById(field);
+                break;
+            }
+        }
+
+        if (firstInvalidField) {
+            errorMessage.textContent = 'ERRO: Todos os campos obrigatórios devem ser preenchidos para a análise.';
+            errorMessage.style.display = 'block';
+            firstInvalidField.focus();
+            resultsContainer.style.display = 'none';
+            return;
+        }
+
+        errorMessage.style.display = 'none';
+        resultsContainer.style.display = 'block';
+        resultsContent.innerHTML = `
+            <div class="loading">
+                <div class="loading-spinner"></div>
+                <div class="loading-text">Processando dados e consultando matriz de performance...</div>
+            </div>`;
+        analyzeBtn.disabled = true;
+        resultsContainer.scrollIntoView({ behavior: 'smooth' });
+
+        setTimeout(() => {
+            const sportScores = [];
+            for (const sportName in sportsDatabase) {
+                const sportData = sportsDatabase[sportName];
+                const score = calcularCompatibilidade(userData, sportData);
+                sportScores.push({ name: sportName, score: score, details: sportData });
+            }
+
+            sportScores.sort((a, b) => b.score - a.score);
+
+            const topSport = sportScores[0];
+            const top5Sports = sportScores.slice(0, 5);
+
+            let resultsHTML = `
+                <div class="sport-recommendation">
+                    <div class="section-header">
+                        <div class="section-icon" style="background: linear-gradient(45deg, var(--accent-neon), var(--primary-neon));">🏆</div>
+                        <div class="section-title" style="color: var(--accent-neon);">Top 5 Recomendações</div>
+                    </div>
+                    ${top5Sports.map(sport => `
+                        <div class="sport-match">
+                            <span class="sport-name">${sport.name}</span>
+                            <div class="match-bar">
+                                <div class="match-fill" style="width: ${sport.score}%;"></div>
+                            </div>
+                            <span class="match-percentage">${sport.score}%</span>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <div class="attributes-grid">
+                     <div class="attribute-card"><div class="attribute-label">Força</div><div class="attribute-score">${userData.forca}/10</div></div>
+                     <div class="attribute-card"><div class="attribute-label">Resistência</div><div class="attribute-score">${userData.resistencia}/10</div></div>
+                     <div class="attribute-card"><div class="attribute-label">Velocidade</div><div class="attribute-score">${userData.velocidade}/10</div></div>
+                     <div class="attribute-card"><div class="attribute-label">Flexibilidade</div><div class="attribute-score">${userData.flexibilidade}/10</div></div>
+                </div>
+
+                <div class="detailed-analysis">
+                    <div class="analysis-section">
+                        <div class="analysis-title">Análise Detalhada: ${topSport.name} (Compatibilidade de ${topSport.score}%)</div>
+                        <p class="analysis-content">${topSport.details.description}</p>
+                    </div>
+                    <div class="analysis-section">
+                        <div class="analysis-title">Principais Benefícios para seu Perfil</div>
+                        <p class="analysis-content">${topSport.details.benefits.join('. ')}.</p>
+                    </div>
+                </div>
+
+                <div class="recommendations-section">
+                     <h3 class="recommendations-title">Recomendações para Iniciar em ${topSport.name}</h3>
+                     <ul class="recommendations-list">
+                        ${topSport.details.startingTips.map(tip => `<li>${tip}</li>`).join('')}
+                     </ul>
+                </div>
+            `;
+
+            resultsContent.innerHTML = resultsHTML;
+            analyzeBtn.disabled = false;
+        }, 2000); // Simula 2 segundos de processamento
+    }
+</script>
